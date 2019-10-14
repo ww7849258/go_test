@@ -9,6 +9,10 @@ var InsufficientFundsError = errors.New("cannot withdraw, insufficient funds")
 
 type Bitcoin float64
 
+type Int optionalInt
+
+type optionalInt []int
+
 func (b Bitcoin) String() string {
 	return fmt.Sprintf("%.2f BTC", b)
 }
