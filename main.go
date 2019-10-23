@@ -2,7 +2,15 @@ package main
 
 import (
 	"fmt"
+	"regexp"
+	"strings"
 	"time"
+)
+
+const (
+	// 触发条件
+	QualifyingFactorQtyPrefix    = "QFQ"
+	QualifyingFactorAmountPrefix = "QF$"
 )
 
 func main() {
@@ -21,5 +29,25 @@ func main() {
 	default:
 		fmt.Println("others")
 	}
+
+	qtyExp := regexp.MustCompile(`QFQ\d+`)
+	amountExp := regexp.MustCompile(`QF\$\d+`)
+
+	result1 := qtyExp.FindString("QF1Q1")
+
+	result2 := amountExp.FindString("QF$111")
+
+	result3 := qtyExp.FindStringIndex("QFQ1")
+
+	fmt.Println(result1)
+	fmt.Println(result2)
+	fmt.Println(result3)
+
+	fmt.Println(strings.LastIndex("QFQ5", QualifyingFactorQtyPrefix))
+
+	fmt.Println(strings.LastIndex("QF1", QualifyingFactorQtyPrefix))
+
+	qty := "QFQ5"[len(QualifyingFactorQtyPrefix):]
+	fmt.Println(qty)
 
 }
